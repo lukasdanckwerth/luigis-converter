@@ -1,0 +1,32 @@
+#!/bin/sh
+
+set -x
+set -u
+set -e
+
+echo -e """
+         __   __   __ __          __ __ ___ __ __
+|  /  \|/ _ |(_   /  /  \|\ |\  /|_ |__) | |_ |__)
+|__\__/|\__)|__)  \__\__/| \| \/ |__| \  | |__| \_
+"""
+ls -la
+ls -la "/app/scripts"
+
+PARENT_DIR="/app/.raw"
+DWH_RAW_DIR="${PARENT_DIR}/raw-dwh"
+MP4_RAW_DIR="${PARENT_DIR}/raw-mp4"
+MOV_RAW_DIR="${PARENT_DIR}/raw-mov"
+FINAL_MP4_DIR="${PARENT_DIR}/final-mp4"
+FINAL_MOM_DIR="${PARENT_DIR}/final-mov"
+
+mkdir -p "${DWH_RAW_DIR}"
+mkdir -p "${MP4_RAW_DIR}"
+mkdir -p "${MOV_RAW_DIR}"
+
+/bin/sh /app/scripts/convert-dwh-if-needed \
+   "${DWH_RAW_DIR}" \
+   "${MP4_RAW_DIR}"
+
+/bin/sh /app/scripts/convert-mp4-if-needed \
+   "${MP4_RAW_DIR}" \
+   "${MOV_RAW_DIR}"
