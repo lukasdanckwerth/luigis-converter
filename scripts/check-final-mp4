@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ $# -ne 2 ] ; then
    echo "no arguments"
@@ -18,12 +18,13 @@ echo "OUTPUT_DIR: ${OUTPUT_DIR}"
 
 mkdir -p "${OUTPUT_DIR}"
 
+
 for FILE_NAME in $(ls "${INPUT_DIR}");
 do
-   if [ ${FILE_NAME: -4} == ".mp4" ]; then
+   if [ ${FILE_NAME: -4} == ".mp4" ] || [ ${FILE_NAME: -4} == ".mov" ]; then
       
       INPUT_FILE_PATH="${INPUT_DIR}/${FILE_NAME}"
-      OUTPUT_FILE_PATH="${OUTPUT_DIR}/${FILE_NAME}"
+      OUTPUT_FILE_PATH="${OUTPUT_DIR}/${FILE_NAME}.mov"
 
       echo "INPUT_FILE_PATH: ${INPUT_FILE_PATH}"
       echo "OUTPUT_FILE_PATH: ${OUTPUT_FILE_PATH}"
@@ -33,19 +34,11 @@ do
       else
          echo "convert file: ${INPUT_FILE_PATH}"
 
-         MY_PATH="`dirname \"$0\"`"
-         echo "MY_PATH: ${MY_PATH}"
+         /bin/sh /app/scripts/to-mov-low \
+            "${INPUT_FILE_PATH}" \
+            "${OUTPUT_FILE_PATH}"
 
-         CONVERT_TOOL="${MY_PATH}/convert-dwh-to-mov"
-         ${CONVERT_TOOL} "${INPUT_FILE_PATH}" "${OUTPUT_FILE_PATH}"
-
-         if [ $? -eq 0 ]; then
-            echo "removing file: ${INPUT_FILE_PATH}"
-            # rm -rf "${INPUT_FILE_PATH}"
-         else
-            echo "not removing file"
-         fi
-         
+	 exit 0
       fi
    else
       echo "ignoring file: ${FILE_NAME}"

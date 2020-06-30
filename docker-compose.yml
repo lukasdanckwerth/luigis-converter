@@ -2,10 +2,10 @@ version: "3.7"
 services:
   converter:
     build: .
-    container_name: luigis-video-converter
+    container_name: luigis-converter
     volumes:
-      - .raw:/app/.raw
-
+      - /Users/lukas/.raw:/app/media
+x
 
 #    environment:
 #      - WORKGROUP=WORKGROUP

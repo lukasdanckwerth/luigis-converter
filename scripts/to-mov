@@ -1,8 +1,6 @@
 #!/bin/sh
-
 INPUT_PATH="${1}"
 OUTPUT_PATH="${2}"
-
 ffmpeg \
    -hide_banner \
    -i "${INPUT_PATH}" \

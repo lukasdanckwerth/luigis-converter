@@ -1,0 +1,20 @@
+#!/bin/sh
+echo "INPUT_PATH: ${INPUT_PATH}"
+echo "OUTPUT_PATH: ${OUTPUT_PATH}"
+ffmpeg \
+   -hide_banner \
+   -f mov \
+   -quality best \
+   -codec:v libx264 \
+   -pix_fmt yuv420p \
+   -b:v 2500k \
+   -minrate 1500k \
+   -maxrate 4000k \
+   -bufsize 5000k \
+   -vf scale=-1:720 \
+   -i "${INPUT_PATH}" \
+   "${OUTPUT_PATH}"
+
+# -loglevel warning \
+
+exit 0
