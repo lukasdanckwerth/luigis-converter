@@ -37,8 +37,7 @@ do
          /bin/sh /app/scripts/to-mov-low \
             "${INPUT_FILE_PATH}" \
             "${OUTPUT_FILE_PATH}"
-
-	 exit 0
+         exit 0
       fi
    else
       echo "ignoring file: ${FILE_NAME}"

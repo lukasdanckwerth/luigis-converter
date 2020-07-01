@@ -44,6 +44,8 @@ do
          else
             echo "not removing file"
          fi 
+
+         exit 0
       fi
    else
       echo "ignoring file: ${FILE_NAME}"
