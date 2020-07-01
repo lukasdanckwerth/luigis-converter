@@ -30,7 +30,7 @@ do
       echo "OUTPUT_FILE_PATH: ${OUTPUT_FILE_PATH}"
 
       if [ -f "${OUTPUT_FILE_PATH}" ]; then
-         echo "skippinf file because it already exist: ${OUTPUT_FILE_PATH}"
+         echo "skipping file because it already exist: ${OUTPUT_FILE_PATH}"
       else
          echo "convert file: ${INPUT_FILE_PATH}"
 
