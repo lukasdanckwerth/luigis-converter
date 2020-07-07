@@ -29,7 +29,7 @@ fi
 for FILE_PATH in $INPUT_DIR/*.$FILE_EXTENSION ;
 do
   FILE_NAME=$(basename -- "${FILE_PATH}")
-  PURE_FILE_NAME="${filename%.*}"
+  PURE_FILE_NAME="${FILE_NAME%.*}"
   OUTPUT_FILE_PATH="${OUTPUT_DIR}/${PURE_FILE_NAME}.${TARGET_FILE_EXTENSION}"
   INPUT_FILE_PATH="${FILE_PATH}"
 
@@ -39,9 +39,9 @@ do
     echo "skipping file because it already exist: ${OUTPUT_FILE_PATH}"
   else
     echo "convert file: ${FILE_PATH}"
-#    /bin/sh "${CONVERT_COM_PATH}" \
-#      "${FILE_PATH}" \
-#      "${OUTPUT_FILE_PATH}"
+    /bin/sh "${CONVERT_COM_PATH}" \
+      "${FILE_PATH}" \
+      "${OUTPUT_FILE_PATH}"
     exit 0
   fi
 done
