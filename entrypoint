@@ -17,22 +17,35 @@ MOV_RAW_DIR="${PARENT_DIR}/raw-mov"
 
 FINAL_MP4_DIR="${PARENT_DIR}/final-mp4"
 FINAL_MOM_DIR="${PARENT_DIR}/final-mov"
+FINAL_MOM_LOW_DIR="${PARENT_DIR}/final-mov-low"
 
 mkdir -p "${DWH_RAW_DIR}"
 mkdir -p "${MP4_RAW_DIR}"
 mkdir -p "${MOV_RAW_DIR}"
 mkdir -p "${FINAL_MP4_DIR}"
 mkdir -p "${FINAL_MOM_DIR}"
+mkdir -p "${FINAL_MOM_LOW_DIR}"
 
-/bin/sh /app/scripts/check-raw-dwh \
+/bin/sh /app/scripts/convert-directory \
    "${DWH_RAW_DIR}" \
-   "${MP4_RAW_DIR}"
-
-/bin/sh /app/scripts/check-raw-mp4 \
    "${MP4_RAW_DIR}" \
-   "${MOV_RAW_DIR}"
+   "/app/scripts/to-mp4" \
+   "mp4"
 
-/bin/sh /app/scripts/check-final-mp4 \
+/bin/sh /app/scripts/convert-directory \
    "${MP4_RAW_DIR}" \
-   "${MOV_RAW_DIR}"
+   "${MOV_RAW_DIR}" \
+   "/app/scripts/to-mov" \
+   "mp4"
 
+/bin/sh /app/scripts/convert-directory \
+   "${FINAL_MP4_DIR}" \
+   "${FINAL_MOM_DIR}" \
+   "/app/scripts/to-mov" \
+   "mp4"
+
+/bin/sh /app/scripts/convert-directory \
+   "${FINAL_MOM_DIR}" \
+   "${FINAL_MOM_LOW_DIR}" \
+   "/app/scripts/to-mov-low" \
+   "mov"

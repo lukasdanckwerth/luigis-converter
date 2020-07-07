@@ -4,20 +4,4 @@ services:
     build: .
     container_name: luigis-converter
     volumes:
-      - /srv/harddrive/Space/.thumbsdb/.media:/app/media
-      
-#    environment:
-#      - WORKGROUP=WORKGROUP
-#    restart: unless-stopped
-#    ports:
-#      - "137:137/udp"
-#      - "138:138/udp"
-#      - "139:139"
-#      - /srv/harddrive:/opt/timemachine
-#      - ./timemachine-var-lib-samba:/var/lib/samba
-#      - ./timemachine-var-cache-samba:/var/cache/samba
-#      - ./timemachine-run-samba:/run/samba
-#    ulimits:
-#      nofile:
-#        soft: 65536
-#        hard: 65536
+      - /Volumes/MEDIA/.raw:/app/media

@@ -1,9 +1,9 @@
 #!/bin/sh
-INPUT_PATH="${1}"
-OUTPUT_PATH="${2}"
+echo "INPUT_PATH: ${1}"
+echo "OUTPUT_PATH: ${2}"
 ffmpeg \
    -hide_banner \
-   -i "${INPUT_PATH}" \
+   -i "${1}" \
    -c:v libx264 \
    -preset slow \
    -profile:v high \
@@ -17,7 +17,7 @@ ffmpeg \
    -b:a 384k \
    -profile:a aac_low \
    -f mov \
-   "${OUTPUT_PATH}"
+   "${2}"
 
 # -vcodec copy \
 # -acodec copy \

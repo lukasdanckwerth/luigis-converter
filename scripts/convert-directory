@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [ $# -ne 4 ] ; then
+  echo "no arguments" ; exit 0
+fi
+
+INPUT_DIR="${1}"
+OUTPUT_DIR="${2}"
+CONVERT_COM_PATH="${3}"
+FILE_EXTENSION="${4}"
+
+if [ ! -d "${INPUT_DIR}" ] ; then
+   echo "input file does not exist: ${INPUT_DIR}" ; exit 0
+fi
+
+echo "INPUT_DIR: ${INPUT_DIR}"
+echo "OUTPUT_DIR: ${OUTPUT_DIR}"
+echo "CONVERT_COM_PATH: ${CONVERT_COM_PATH}"
+echo "FILE_EXTENSION: ${FILE_EXTENSION}"
+
+mkdir -p "${OUTPUT_DIR}"
+rm -rf "${INPUT_DIR}/.DS_Store"
+
+if [ ! "$(ls -A ${INPUT_DIR})" ]; then
+   echo "No files" ; exit 0
+fi
+
+for FILE_PATH in $INPUT_DIR/*.$FILE_EXTENSION ;
+do
+  FILE_NAME=$(basename -- "${FILE_PATH}")
+  OUTPUT_FILE_PATH="${OUTPUT_DIR}/${FILE_NAME}"
+  INPUT_FILE_PATH="${FILE_PATH}"
+
+  if [ -f "${OUTPUT_FILE_PATH}" ]; then
+    echo "skipping file because it already exist: ${OUTPUT_FILE_PATH}"
+  else
+    echo "convert file: ${FILE_PATH}"
+    /bin/sh "${CONVERT_COM_PATH}" \
+      "${FILE_PATH}" \
+      "${OUTPUT_FILE_PATH}"
+    exit 0
+  fi
+done
+
+exit 0

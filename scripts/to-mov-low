@@ -1,8 +1,9 @@
 #!/bin/sh
-echo "INPUT_PATH: ${INPUT_PATH}"
-echo "OUTPUT_PATH: ${OUTPUT_PATH}"
+echo "INPUT_PATH: ${1}"
+echo "OUTPUT_PATH: ${2}"
 ffmpeg \
    -hide_banner \
+   -i "${1}" \
    -f mov \
    -quality best \
    -codec:v libx264 \
@@ -12,9 +13,5 @@ ffmpeg \
    -maxrate 4000k \
    -bufsize 5000k \
    -vf scale=-1:720 \
-   -i "${INPUT_PATH}" \
-   "${OUTPUT_PATH}"
-
-# -loglevel warning \
-
+   "${2}"
 exit 0
