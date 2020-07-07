@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -ne 4 ] ; then
+if [ $# -ne 5 ] ; then
   echo "no arguments" ; exit 0
 fi
 
@@ -8,6 +8,7 @@ INPUT_DIR="${1}"
 OUTPUT_DIR="${2}"
 CONVERT_COM_PATH="${3}"
 FILE_EXTENSION="${4}"
+TARGET_FILE_EXTENSION="${5}"
 
 if [ ! -d "${INPUT_DIR}" ] ; then
    echo "input file does not exist: ${INPUT_DIR}" ; exit 0
@@ -28,16 +29,19 @@ fi
 for FILE_PATH in $INPUT_DIR/*.$FILE_EXTENSION ;
 do
   FILE_NAME=$(basename -- "${FILE_PATH}")
-  OUTPUT_FILE_PATH="${OUTPUT_DIR}/${FILE_NAME}"
+  PURE_FILE_NAME="${filename%.*}"
+  OUTPUT_FILE_PATH="${OUTPUT_DIR}/${PURE_FILE_NAME}.${TARGET_FILE_EXTENSION}"
   INPUT_FILE_PATH="${FILE_PATH}"
+
+  echo "OUTPUT_FILE_PATH: ${OUTPUT_FILE_PATH}"
 
   if [ -f "${OUTPUT_FILE_PATH}" ]; then
     echo "skipping file because it already exist: ${OUTPUT_FILE_PATH}"
   else
     echo "convert file: ${FILE_PATH}"
-    /bin/sh "${CONVERT_COM_PATH}" \
-      "${FILE_PATH}" \
-      "${OUTPUT_FILE_PATH}"
+#    /bin/sh "${CONVERT_COM_PATH}" \
+#      "${FILE_PATH}" \
+#      "${OUTPUT_FILE_PATH}"
     exit 0
   fi
 done

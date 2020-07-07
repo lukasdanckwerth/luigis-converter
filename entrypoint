@@ -30,22 +30,26 @@ mkdir -p "${FINAL_MOM_LOW_DIR}"
    "${DWH_RAW_DIR}" \
    "${MP4_RAW_DIR}" \
    "/app/scripts/to-mp4" \
+   "mp4" \
    "mp4"
 
 /bin/sh /app/scripts/convert-directory \
    "${MP4_RAW_DIR}" \
    "${MOV_RAW_DIR}" \
    "/app/scripts/to-mov" \
-   "mp4"
+   "mp4" \
+   "mov"
 
 /bin/sh /app/scripts/convert-directory \
    "${FINAL_MP4_DIR}" \
    "${FINAL_MOM_DIR}" \
    "/app/scripts/to-mov" \
-   "mp4"
+   "mp4" \
+   "mov"
 
 /bin/sh /app/scripts/convert-directory \
    "${FINAL_MOM_DIR}" \
    "${FINAL_MOM_LOW_DIR}" \
    "/app/scripts/to-mov-low" \
+   "mov" \
    "mov"
