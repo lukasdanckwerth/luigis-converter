@@ -19,6 +19,9 @@ echo "OUTPUT_DIR: ${OUTPUT_DIR}"
 echo "CONVERT_COM_PATH: ${CONVERT_COM_PATH}"
 echo "FILE_EXTENSION: ${FILE_EXTENSION}"
 
+echo "CV_DRY: ${CV_DRY}"
+echo "CV_DELETE: ${CV_DELETE}"
+
 mkdir -p "${OUTPUT_DIR}"
 rm -rf "${INPUT_DIR}/.DS_Store"
 
@@ -39,10 +42,19 @@ do
     echo "skipping file because it already exist: ${OUTPUT_FILE_PATH}"
   else
     echo "convert file: ${FILE_PATH}"
-    /bin/sh "${CONVERT_COM_PATH}" \
-      "${FILE_PATH}" \
-      "${OUTPUT_FILE_PATH}"
-    exit 0
+    if (( CV_DRY == 0 )) ; then
+      /bin/sh "${CONVERT_COM_PATH}" \
+        "${FILE_PATH}" \
+        "${OUTPUT_FILE_PATH}"
+    fi
+
+    if (( CV_DELETE == 1 )) ; then
+      echo "is CV_DELETE"
+    fi
+
+    if (( CV_SINGLE == 1 )) ; then
+      exit 0
+    fi
   fi
 done
 

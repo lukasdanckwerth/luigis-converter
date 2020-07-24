@@ -1,0 +1,84 @@
+#!/bin/sh
+
+set -u
+set -e
+
+# whether to delete a source file after successfully convertion
+export CV_DELETE=0
+
+# whether to not convert videos
+export CV_DRY=0
+
+# whether to only convert one video per directory
+export CV_SINGLE=0
+
+BASEDIR=$(dirname "$0")
+PARENT_DIR="/Users/lukas/.raw"
+
+# ===---------------------------------------------------------------------------------------------------------------===
+#
+#
+# parse command line
+
+while (( $# > 0 ))
+do
+   case ${1} in
+   --trace                 ) set -x ;                                          shift  ;;
+   --delete                ) export CV_DELETE=1 ;                              shift  ;;
+   --dry                   ) export CV_DRY=1 ;                                 shift  ;;
+   --single                ) export CV_SINGLE=1 ;                              shift  ;;
+   *                       ) echo "Unknown argument: ${1}" ;                   exit 0 ;;
+   esac
+done
+
+echo """
+         __   __   __ __          __ __ ___ __ __
+|  /  \|/ _ |(_   /  /  \|\ |\  /|_ |__) | |_ |__)d
+|__\__/|\__)|__)  \__\__/| \| \/ |__| \  | |__| \_
+"""
+
+echo "CV_DELETE: ${CV_DELETE}"
+echo "CV_DRY: ${CV_DRY}"
+
+DWH_RAW_DIR="${PARENT_DIR}/raw-dwh"
+MP4_RAW_DIR="${PARENT_DIR}/raw-mp4"
+MOV_RAW_DIR="${PARENT_DIR}/raw-mov"
+
+FINAL_MP4_DIR="${PARENT_DIR}/final-mp4"
+FINAL_MOM_DIR="${PARENT_DIR}/final-mov"
+FINAL_MOM_LOW_DIR="${PARENT_DIR}/final-mov-low"
+
+mkdir -p "${DWH_RAW_DIR}"
+mkdir -p "${MP4_RAW_DIR}"
+mkdir -p "${MOV_RAW_DIR}"
+mkdir -p "${FINAL_MP4_DIR}"
+mkdir -p "${FINAL_MOM_DIR}"
+mkdir -p "${FINAL_MOM_LOW_DIR}"
+
+/bin/sh "${BASEDIR}/scripts/convert-directory" \
+   "${DWH_RAW_DIR}" \
+   "${MP4_RAW_DIR}" \
+   "${BASEDIR}/scripts/to-mp4" \
+   "mp4" \
+   "mp4"
+
+/bin/sh "${BASEDIR}/scripts/convert-directory" \
+   "${MP4_RAW_DIR}" \
+   "${MOV_RAW_DIR}" \
+   "${BASEDIR}/scripts/to-mov" \
+   "mp4" \
+   "mov"
+
+/bin/sh "${BASEDIR}/scripts/convert-directory" \
+   "${FINAL_MP4_DIR}" \
+   "${FINAL_MOM_DIR}" \
+   "${BASEDIR}/scripts/to-mov" \
+   "mp4" \
+   "mov"
+
+/bin/sh "${BASEDIR}/scripts/convert-directory" \
+   "${FINAL_MOM_DIR}" \
+   "${FINAL_MOM_LOW_DIR}" \
+   "${BASEDIR}/scripts/to-mov-low" \
+   "mov" \
+   "mov"
