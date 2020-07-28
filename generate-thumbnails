@@ -31,54 +31,15 @@ do
    esac
 done
 
-echo """
-         __   __   __ __          __ __ ___ __ __
-|  /  \|/ _ |(_   /  /  \|\ |\  /|_ |__) | |_ |__)d
-|__\__/|\__)|__)  \__\__/| \| \/ |__| \  | |__| \_
-"""
-
-echo "CV_DELETE: ${CV_DELETE}"
-echo "CV_DRY: ${CV_DRY}"
-
-DWH_RAW_DIR="${PARENT_DIR}/raw-dwh"
-MP4_RAW_DIR="${PARENT_DIR}/raw-mp4"
-MOV_RAW_DIR="${PARENT_DIR}/raw-mov"
-
-FINAL_MP4_DIR="${PARENT_DIR}/final-mp4"
 FINAL_MOM_DIR="${PARENT_DIR}/final-mov"
 FINAL_MOM_LOW_DIR="${PARENT_DIR}/final-mov-low"
+FINAL_MOV_THUMBNAILS="${PARENT_DIR}/final-mov-thumbnails"
 
-mkdir -p "${DWH_RAW_DIR}"
-mkdir -p "${MP4_RAW_DIR}"
-mkdir -p "${MOV_RAW_DIR}"
-mkdir -p "${FINAL_MP4_DIR}"
-mkdir -p "${FINAL_MOM_DIR}"
-mkdir -p "${FINAL_MOM_LOW_DIR}"
-
-/bin/sh "${BASEDIR}/scripts/convert-directory" \
-   "${DWH_RAW_DIR}" \
-   "${MP4_RAW_DIR}" \
-   "${BASEDIR}/scripts/to-mp4" \
-   "mp4" \
-   "mp4"
-
-/bin/sh "${BASEDIR}/scripts/convert-directory" \
-   "${MP4_RAW_DIR}" \
-   "${MOV_RAW_DIR}" \
-   "${BASEDIR}/scripts/to-mov" \
-   "mp4" \
-   "mov"
-
-/bin/sh "${BASEDIR}/scripts/convert-directory" \
-   "${FINAL_MP4_DIR}" \
-   "${FINAL_MOM_DIR}" \
-   "${BASEDIR}/scripts/to-mov" \
-   "mp4" \
-   "mov"
+mkdir -p "${FINAL_MOV_THUMBNAILS}"
 
 /bin/sh "${BASEDIR}/scripts/convert-directory" \
    "${FINAL_MOM_DIR}" \
-   "${FINAL_MOM_LOW_DIR}" \
-   "${BASEDIR}/scripts/to-mov-low" \
+   "${FINAL_MOV_THUMBNAILS}" \
+   "${BASEDIR}/scripts/thumbnail" \
    "mov" \
-   "mov"
+   "jpg"
